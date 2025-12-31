@@ -79,7 +79,7 @@ header_html('Account Settings');
       <div class="avatar avatar-initials" aria-hidden="true" style="width:80px;height:80px;border-radius:50%;background:#007bff;color:white;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:500;"><?= h($meInitials) ?></div>
     <?php endif; ?>
 
-    <form method="post" action="/upload_photo.php?user_id=<?= (int)$me['id'] ?>&return_to=/my_profile.php" enctype="multipart/form-data" class="stack" style="margin-left:auto;min-width:260px" id="profilePhotoForm">
+    <form method="post" action="/upload_photo.php?user_id=<?= (int)$me['id'] ?>&return_to=/account_settings.php" enctype="multipart/form-data" class="stack" style="margin-left:auto;min-width:260px" id="profilePhotoForm">
       <input type="hidden" name="csrf" value="<?= h(csrf_token()) ?>">
       <label>Upload a new photo
         <input type="file" name="photo" accept="image/*" required>
@@ -89,7 +89,7 @@ header_html('Account Settings');
       </div>
     </form>
     <?php if (!empty($mePhotoUrl)): ?>
-      <form method="post" action="/upload_photo.php?user_id=<?= (int)$me['id'] ?>&return_to=/my_profile.php" onsubmit="return confirm('Remove this photo?');" style="margin-left:12px;">
+      <form method="post" action="/upload_photo.php?user_id=<?= (int)$me['id'] ?>&return_to=/account_settings.php" onsubmit="return confirm('Remove this photo?');" style="margin-left:12px;">
         <input type="hidden" name="csrf" value="<?= h(csrf_token()) ?>">
         <input type="hidden" name="action" value="delete">
         <button class="button">Remove Photo</button>

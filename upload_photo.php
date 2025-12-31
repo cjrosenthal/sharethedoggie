@@ -1,7 +1,7 @@
 <?php
 // upload_photo.php - Handles profile photo uploads for users.
 // Usage (POST, multipart/form-data):
-//   /upload_photo.php?user_id=123&return_to=/my_profile.php
+//   /upload_photo.php?user_id=123&return_to=/account_settings.php
 
 require_once __DIR__ . '/partials.php';
 require_once __DIR__ . '/lib/Files.php';

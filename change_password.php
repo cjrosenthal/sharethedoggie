@@ -52,7 +52,7 @@ header_html('Change Password');
         </label>
         <div class="actions">
             <button type="submit" class="primary">Update Password</button>
-            <a class="button" href="/my_profile.php">Cancel</a>
+            <a class="button" href="/account_settings.php">Cancel</a>
         </div>
     </form>
 </div>
