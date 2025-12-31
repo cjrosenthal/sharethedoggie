@@ -53,9 +53,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-header_html('My Profile');
+header_html('Account Settings');
 ?>
-<h2>My Profile</h2>
+<h2>Account Settings</h2>
 <?php
   // Surface messages from upload_photo redirect
   if (isset($_GET['uploaded'])) { $msg = 'Photo uploaded.'; }

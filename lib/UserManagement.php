@@ -347,7 +347,7 @@ class UserManagement {
         return $ok;
     }
 
-    // Update user profile (for my_profile.php)
+    // Update user profile (for account settings page)
     public static function updateUserProfile(UserContext $ctx, int $id, string $firstName, string $lastName, string $email): bool {
         self::assertCanUpdate($ctx, $id);
         

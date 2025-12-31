@@ -100,4 +100,4 @@ CREATE INDEX idx_emails_sent_success ON emails_sent(success);
 
 -- Optional: seed an admin user (update email and password hash, then remove)
 INSERT INTO users (first_name,last_name,email,password_hash,is_admin,email_verified_at)
-VALUES ('Brian','Rosenthal','brian.rosenthal@gmail.com','$2y$10$9xH7Jq4v3o6s9k3y8i4rVOyWb0yBYZ5rW.0f9pZ.gG9K6l7lS6b2S',1,NOW());
+VALUES ('Charlie','Rosenthal','charles.julien.rosenthal@gmail.com','$2y$10$9xH7Jq4v3o6s9k3y8i4rVOyWb0yBYZ5rW.0f9pZ.gG9K6l7lS6b2S',1,NOW());

@@ -1,5 +1,5 @@
 ### Project Brief
-"rag" is a web application to allow users to upload documents and then build a custom gpt that responds with answers from those documents.
+"Share The Doggie.com" is a web site to allow users to find dogs to borrow.
 
 ## User Types
 
@@ -10,7 +10,7 @@ There are "admins" and "users".
 1. Login.  There is a login page (/login.php) which allows a user to login.  Users are redirected there if they are not logged in.
 2. Forgot my password.  /forgot_password.php.  Generates and emails a link to /reset_password.php with a token that allows a user to reset their password.
 3. View the homepage.  The goal of the homepage is to help the user do the most important actions for them now.  For now, it is empty
-6. Update "My Profile" (the user information, the user profile eventually)
+6. Update "Account Settings" (the user information, the user profile eventually)
 8. Users (list of users and search by keyword)
 10. Logout
 
