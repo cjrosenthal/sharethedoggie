@@ -36,6 +36,7 @@ $fields = [
     'state' => trim($_POST['state'] ?? ''),
     'zip' => trim($_POST['zip'] ?? ''),
     'phone' => trim($_POST['phone'] ?? ''),
+    'description' => trim($_POST['description'] ?? ''),
     'has_owned_a_dog' => $_POST['has_owned_a_dog'] ?? '',
     'has_children_at_home' => $_POST['has_children_at_home'] ?? '',
     'has_outdoor_space' => $_POST['has_outdoor_space'] ?? '',

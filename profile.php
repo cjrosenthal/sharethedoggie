@@ -80,6 +80,13 @@ header_html('Profile: ' . h($fullName));
                     </div>
                 <?php endif; ?>
                 
+                <?php if (!empty($user['description'])): ?>
+                    <div style="margin-bottom:1rem;">
+                        <strong>Description:</strong><br>
+                        <?=nl2br(h($user['description']))?>
+                    </div>
+                <?php endif; ?>
+                
                 <?php if (!empty($attributes)): ?>
                     <div>
                         <strong>Attributes:</strong>

@@ -405,7 +405,7 @@ class UserManagement {
         self::assertCanUpdate($ctx, $id);
         
         $allowed = [
-            'preferred_name', 'street1', 'street2', 'city', 'state', 'zip', 'phone',
+            'preferred_name', 'street1', 'street2', 'city', 'state', 'zip', 'phone', 'description',
             'has_owned_a_dog', 'has_children_at_home', 'has_outdoor_space'
         ];
         

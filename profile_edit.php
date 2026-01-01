@@ -40,13 +40,16 @@ header_html('Edit Profile: ' . h($fullName));
 
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
     <h2><?=h($fullName)?></h2>
-    <a href="/profile.php?user_id=<?=(int)$userId?>" class="button">View</a>
+    <div style="display:flex;gap:0.5rem;">
+        <button type="submit" form="profileEditForm" class="primary">Save</button>
+        <a href="/profile.php?user_id=<?=(int)$userId?>" class="button">View</a>
+    </div>
 </div>
 
 <?php if ($msg): ?><p class="flash"><?=h($msg)?></p><?php endif; ?>
 <?php if ($err): ?><p class="error"><?=h($err)?></p><?php endif; ?>
 
-<form method="post" action="/profile_edit_eval.php?user_id=<?=(int)$userId?>" class="stack">
+<form id="profileEditForm" method="post" action="/profile_edit_eval.php?user_id=<?=(int)$userId?>" class="stack">
     <input type="hidden" name="csrf" value="<?=h(csrf_token())?>">
     
     <div class="card">
@@ -60,6 +63,9 @@ header_html('Edit Profile: ' . h($fullName));
                     </label>
                     <label>Phone Number
                         <input type="tel" name="phone" value="<?=h($user['phone'] ?? '')?>">
+                    </label>
+                    <label>Description
+                        <textarea name="description" rows="4" placeholder="Tell us about yourself..."><?=h($user['description'] ?? '')?></textarea>
                     </label>
                 </div>
             </div>

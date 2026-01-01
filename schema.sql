@@ -22,6 +22,7 @@ CREATE TABLE users (
   state VARCHAR(50) DEFAULT NULL,
   zip VARCHAR(20) DEFAULT NULL,
   phone VARCHAR(50) DEFAULT NULL,
+  description TEXT DEFAULT NULL,
   has_owned_a_dog TINYINT(1) DEFAULT NULL,
   has_children_at_home TINYINT(1) DEFAULT NULL,
   has_outdoor_space TINYINT(1) DEFAULT NULL,
