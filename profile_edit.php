@@ -30,7 +30,6 @@ $msg = null;
 // Handle messages from upload_photo redirect
 if (isset($_GET['uploaded'])) { $msg = 'Photo uploaded successfully.'; }
 if (isset($_GET['deleted'])) { $msg = 'Photo removed successfully.'; }
-if (isset($_GET['err'])) { $err = 'Photo upload failed.'; }
 
 $userName = trim((string)($user['first_name'] ?? '').' '.(string)($user['last_name'] ?? ''));
 $userInitials = strtoupper((string)substr((string)($user['first_name'] ?? ''),0,1).(string)substr((string)($user['last_name'] ?? ''),0,1));
