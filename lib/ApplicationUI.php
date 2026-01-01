@@ -50,17 +50,9 @@ class ApplicationUI {
         if ($u) {
             $navLeft[] = $link('/index.php','Home');
             
-            // Admin menu goes on the right side
+            // Admin toggle link (menu bar appears below header)
             if (!empty($u['is_admin'])) {
-                $navRight[] = '<div class="nav-admin-wrap">'
-                            . '<a href="#" id="adminToggle" class="nav-admin-link" aria-expanded="false">Admin</a>'
-                            . '<div id="adminMenu" class="admin-menu hidden" role="menu" aria-hidden="true">'
-                            .   '<a href="/admin/users.php" role="menuitem">Users</a>'
-                            .   '<a href="/admin/settings.php" role="menuitem">Settings</a>'
-                            .   '<a href="/admin/activity_log.php" role="menuitem">Activity Log</a>'
-                            .   '<a href="/admin/email_log.php" role="menuitem">Email Log</a>'
-                            . '</div>'
-                            . '</div>';
+                $navRight[] = '<a href="#" id="adminToggle" class="nav-admin-link" aria-expanded="false">Admin</a>';
             }
             
             // Profile photo with dropdown menu
@@ -99,6 +91,16 @@ class ApplicationUI {
         echo '</head><body>';
         echo '<header><h1><a href="/index.php">'.h($siteTitle).'</a></h1><nav>'.$navHtml.'</nav></header>';
 
+        // Admin bar (horizontal menu below header)
+        if ($u && !empty($u['is_admin'])) {
+            echo '<div id="adminBar" class="admin-bar hidden">'
+               . '<a href="/admin/users.php">Users</a>'
+               . '<a href="/admin/settings.php">Settings</a>'
+               . '<a href="/admin/activity_log.php">Activity Log</a>'
+               . '<a href="/admin/email_log.php">Email Log</a>'
+               . '</div>';
+        }
+
         // Dropdown menu scripts
         if ($u) {
             echo '<script>document.addEventListener("DOMContentLoaded",function(){';
@@ -106,16 +108,16 @@ class ApplicationUI {
             // Avatar dropdown script
             echo 'var at=document.getElementById("avatarToggle");var m=document.getElementById("avatarMenu");function hideAvatar(){if(m){m.classList.add("hidden");m.setAttribute("aria-hidden","true");}if(at){at.setAttribute("aria-expanded","false");}}function toggleAvatar(e){e.preventDefault();if(!m)return;var isHidden=m.classList.contains("hidden");if(isHidden){m.classList.remove("hidden");m.setAttribute("aria-hidden","false");if(at)at.setAttribute("aria-expanded","true");}else{hideAvatar();}}if(at)at.addEventListener("click",toggleAvatar);';
             
-            // Admin dropdown script
+            // Admin bar toggle script
             if (!empty($u['is_admin'])) {
-                echo 'var adminToggle=document.getElementById("adminToggle");var adminMenu=document.getElementById("adminMenu");function hideAdmin(){if(adminMenu){adminMenu.classList.add("hidden");adminMenu.setAttribute("aria-hidden","true");}if(adminToggle){adminToggle.setAttribute("aria-expanded","false");}}function toggleAdmin(e){e.preventDefault();if(!adminMenu)return;var isHidden=adminMenu.classList.contains("hidden");if(isHidden){adminMenu.classList.remove("hidden");adminMenu.setAttribute("aria-hidden","false");if(adminToggle)adminToggle.setAttribute("aria-expanded","true");}else{hideAdmin();}}if(adminToggle)adminToggle.addEventListener("click",toggleAdmin);';
+                echo 'var adminToggle=document.getElementById("adminToggle");var adminBar=document.getElementById("adminBar");function hideAdmin(){if(adminBar){adminBar.classList.add("hidden");}if(adminToggle){adminToggle.setAttribute("aria-expanded","false");}}function toggleAdmin(e){e.preventDefault();if(!adminBar)return;var isHidden=adminBar.classList.contains("hidden");if(isHidden){adminBar.classList.remove("hidden");if(adminToggle)adminToggle.setAttribute("aria-expanded","true");}else{hideAdmin();}}if(adminToggle)adminToggle.addEventListener("click",toggleAdmin);';
             }
             
             // Global click handler to close dropdowns
             echo 'document.addEventListener("click",function(e){';
             echo 'var avatarWrap=at?at.closest(".nav-avatar-wrap"):null;if(avatarWrap&&avatarWrap.contains(e.target))return;hideAvatar();';
             if (!empty($u['is_admin'])) {
-                echo 'var adminWrap=adminToggle?adminToggle.closest(".nav-admin-wrap"):null;if(adminWrap&&adminWrap.contains(e.target))return;hideAdmin();';
+                echo 'if(e.target===adminToggle)return;if(adminBar&&!adminBar.contains(e.target))hideAdmin();';
             }
             echo '});';
             
