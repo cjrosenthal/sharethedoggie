@@ -399,4 +399,53 @@ class UserManagement {
         
         return $ok;
     }
+
+    // Update user profile fields (for profile edit page)
+    public static function updateUserProfileFields(UserContext $ctx, int $id, array $fields): bool {
+        self::assertCanUpdate($ctx, $id);
+        
+        $allowed = [
+            'preferred_name', 'street1', 'street2', 'city', 'state', 'zip', 'phone',
+            'has_owned_a_dog', 'has_children_at_home', 'has_outdoor_space'
+        ];
+        
+        $set = [];
+        $params = [];
+        
+        foreach ($allowed as $key) {
+            if (!array_key_exists($key, $fields)) continue;
+            
+            $val = $fields[$key];
+            
+            // Handle boolean fields - convert empty string to NULL
+            if (in_array($key, ['has_owned_a_dog', 'has_children_at_home', 'has_outdoor_space'])) {
+                if ($val === '' || $val === null) {
+                    $val = null;
+                } else {
+                    $val = (int)(bool)$val;
+                }
+            } else {
+                // Handle string fields - convert empty string to NULL
+                $val = is_string($val) ? trim($val) : $val;
+                if ($val === '') $val = null;
+            }
+            
+            $set[] = "$key = ?";
+            $params[] = $val;
+        }
+        
+        if (empty($set)) return false;
+        $params[] = $id;
+        
+        $sql = 'UPDATE users SET ' . implode(', ', $set) . ' WHERE id = ?';
+        $st = self::pdo()->prepare($sql);
+        $ok = $st->execute($params);
+        
+        if ($ok) {
+            $updatedFields = array_intersect_key($fields, array_flip($allowed));
+            self::log('user.profile_fields_update', $id, $updatedFields);
+        }
+        
+        return $ok;
+    }
 }

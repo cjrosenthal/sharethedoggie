@@ -15,6 +15,16 @@ CREATE TABLE users (
   email_verified_at DATETIME DEFAULT NULL,
   password_reset_token_hash CHAR(64) DEFAULT NULL,
   password_reset_expires_at DATETIME DEFAULT NULL,
+  preferred_name VARCHAR(100) DEFAULT NULL,
+  street1 VARCHAR(255) DEFAULT NULL,
+  street2 VARCHAR(255) DEFAULT NULL,
+  city VARCHAR(100) DEFAULT NULL,
+  state VARCHAR(50) DEFAULT NULL,
+  zip VARCHAR(20) DEFAULT NULL,
+  phone VARCHAR(50) DEFAULT NULL,
+  has_owned_a_dog TINYINT(1) DEFAULT NULL,
+  has_children_at_home TINYINT(1) DEFAULT NULL,
+  has_outdoor_space TINYINT(1) DEFAULT NULL,
   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
 
