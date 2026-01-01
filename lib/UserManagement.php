@@ -400,6 +400,23 @@ class UserManagement {
         return $ok;
     }
 
+    // Update profile types (owner/borrower enabled flags)
+    public static function updateProfileTypes(UserContext $ctx, int $id, bool $ownerEnabled, bool $borrowerEnabled): bool {
+        self::assertCanUpdate($ctx, $id);
+        
+        $st = self::pdo()->prepare("UPDATE users SET owner_profile_enabled = ?, borrower_profile_enabled = ? WHERE id = ?");
+        $ok = $st->execute([$ownerEnabled ? 1 : 0, $borrowerEnabled ? 1 : 0, $id]);
+        
+        if ($ok) {
+            self::log('user.profile_types_update', $id, [
+                'owner_profile_enabled' => $ownerEnabled ? 1 : 0,
+                'borrower_profile_enabled' => $borrowerEnabled ? 1 : 0
+            ]);
+        }
+        
+        return $ok;
+    }
+
     // Update user profile fields (for profile edit page)
     public static function updateUserProfileFields(UserContext $ctx, int $id, array $fields): bool {
         self::assertCanUpdate($ctx, $id);

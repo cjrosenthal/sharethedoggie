@@ -23,6 +23,8 @@ CREATE TABLE users (
   zip VARCHAR(20) DEFAULT NULL,
   phone VARCHAR(50) DEFAULT NULL,
   description TEXT DEFAULT NULL,
+  owner_profile_enabled TINYINT NOT NULL DEFAULT 0,
+  borrower_profile_enabled TINYINT NOT NULL DEFAULT 0,
   has_owned_a_dog TINYINT(1) DEFAULT NULL,
   has_children_at_home TINYINT(1) DEFAULT NULL,
   has_outdoor_space TINYINT(1) DEFAULT NULL,

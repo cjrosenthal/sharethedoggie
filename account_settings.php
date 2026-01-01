@@ -50,6 +50,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $err = implode(' ', $errors);
         }
+    } elseif ($action === 'update_profile_types') {
+        $ownerEnabled = !empty($_POST['owner_profile_enabled']);
+        $borrowerEnabled = !empty($_POST['borrower_profile_enabled']);
+
+        try {
+            $ctx = UserContext::getLoggedInUserContext();
+            $ok = UserManagement::updateProfileTypes($ctx, (int)$me['id'], $ownerEnabled, $borrowerEnabled);
+            if ($ok) {
+                $msg = 'Enabled features updated.';
+                // Refresh $me
+                $me = UserManagement::findById((int)$me['id']) ?: $me;
+            } else {
+                $err = 'Failed to update enabled features.';
+            }
+        } catch (Throwable $e) {
+            $err = 'Error updating enabled features: ' . $e->getMessage();
+        }
     }
 }
 
@@ -79,6 +96,28 @@ header_html('Account Settings');
     <div class="actions">
       <button class="primary">Save Profile</button>
       <a class="button" href="/change_password.php">Change Password</a>
+    </div>
+  </form>
+</div>
+
+<div class="card">
+  <h3>Enabled Features</h3>
+  <form method="post" class="stack">
+    <input type="hidden" name="csrf" value="<?=h(csrf_token())?>">
+    <input type="hidden" name="action" value="update_profile_types">
+    
+    <label class="inline">
+      <input type="checkbox" name="owner_profile_enabled" value="1" <?=!empty($me['owner_profile_enabled']) ? 'checked' : ''?>>
+      Enable Owner Profile - I want to lend my dog to borrowers
+    </label>
+    
+    <label class="inline">
+      <input type="checkbox" name="borrower_profile_enabled" value="1" <?=!empty($me['borrower_profile_enabled']) ? 'checked' : ''?>>
+      Enable Borrower Profile - I want to borrow dogs from owners
+    </label>
+
+    <div class="actions">
+      <button class="primary">Save Enabled Features</button>
     </div>
   </form>
 </div>
